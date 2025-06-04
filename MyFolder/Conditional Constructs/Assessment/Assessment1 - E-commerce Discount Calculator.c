@@ -1,55 +1,117 @@
+/*
+
+Activity 1: E-commerce Discount Calculator
+
+Write a program that calculates the discount for an e-commerce transaction based on the amount spent and
+the customer type (Regular, Silver, or Gold).
+
+Requirements:
+
+1. Prompt the user to enter the amount spent and customer type:
+Customer type codes:
+
+float amountSpent
+
+int customerType (1-3)
+
+1 for Regular
+2 for Silver
+3 for Gold
+
+2. Apply discounts based on the following rules:
+
+Gold customers: 20% discount if they spend over 5000.
+Silver customers: 15% discount if they spend over 3000.
+Regular customers: 10% discount if they spend over 1000.
+
+3. Print the original amount, discount applied, and final amount after the discount.
+
+*/
+
 #include <stdio.h>
 
-int main() {
-    float amountSpent;
-    int customerType;
-    float discountApplied = 0.0f;
-    float finalAmount;
+int main (){
 
-    // Prompt user input
-    printf("Enter amount spent: ");
-    scanf("%f", &amountSpent);
+    //initialization of variables
 
-    printf("Enter Customer Type (1-Regular, 2-Silver, 3-Gold): ");
-    scanf("%d", &customerType);
+    int customerType;//for customer type
 
-    // Check customer type and amount spent for discount eligibility
-    if (customerType == 1) { // Regular
-        if (amountSpent > 1000) {
-            discountApplied = amountSpent * 0.10f;
-            printf("You are a Regular Customer! You have a 10%% Discount.\n");
+    double originalAmount, discountApplied = 0, finalAmount; //for original amount, discount and final amount
+
+    printf ("Welcome!\n");
+
+
+    //request user input
+
+    printf ("Enter Customer Type: ");
+    scanf ("%d", &customerType);
+
+    if (customerType < 1 || customerType > 3){
+        printf ("Invalid Input! Run the Code Again!");
+        return 1;
+    }
+
+    printf ("Enter Original Amount: ");
+    scanf ("%lf", &originalAmount);
+
+
+    //regular
+
+    if (customerType == 1){
+        if (originalAmount >= 1000){
+            printf ("\n");
+            printf ("You are a Regular Customer! Congrats! You have a 10%% Discount\n");
+            discountApplied = originalAmount * 0.10;
         } else {
-            printf("You are a Regular Customer! No discount applied.\n");
+            printf ("You have not met the required amount! No Discount Applied!\n");
         }
     }
-    else if (customerType == 2) { // Silver
-        if (amountSpent > 3000) {
-            discountApplied = amountSpent * 0.15f;
-            printf("You are a Silver Customer! You have a 15%% Discount.\n");
+
+
+    //silver
+
+    if (customerType == 2){
+        if (originalAmount >= 3000){
+            printf ("\n");
+            printf ("You are a Silver Customer! Congrats! You have a 15%% Discount\n");
+            discountApplied = originalAmount * 0.15; 
         } else {
-            printf("You are a Silver Customer! No discount applied.\n");
+            printf ("You have not met the required amount! No Discount Applied!\n");            
         }
     }
-    else if (customerType == 3) { // Gold
-        if (amountSpent > 5000) {
-            discountApplied = amountSpent * 0.20f;
-            printf("You are a Gold Customer! You have a 20%% Discount.\n");
+
+
+    //gold
+
+    if (customerType == 3){
+        if (originalAmount >= 5000){
+            printf ("\n");
+            printf ("You are a Gold Customer! Congrats! You have a 20%% Discount\n");
+            discountApplied = originalAmount * 0.20; 
         } else {
-            printf("You are a Gold Customer! No discount applied.\n");
+            printf ("You have not met the required amount! No Discount Applied!\n");            
         }
     }
-    else {
-        printf("Invalid Customer Type! Please enter 1, 2, or 3.\n");
-        return 1; // Exit program due to invalid input
-    }
 
-    // Calculate final amount after discount
-    finalAmount = amountSpent - discountApplied;
 
-    // Print results
-    printf("Original Amount: %.2f\n", amountSpent);
-    printf("Discount Applied: %.2f\n", discountApplied);
-    printf("Final Price after Discount: %.2f\n", finalAmount);
+    //final amount
 
+    finalAmount = originalAmount - discountApplied;
+
+    //output1
+
+    printf ("\n");
+    
+    printf ("Original Amount: %.2lf\n", originalAmount);
+
+    printf ("Discount Applied: %.2lf\n", discountApplied);
+
+    printf ("Final Amount: %.2lf\n", finalAmount);
+
+    printf ("\n");
+
+    printf ("thank you for shopping!\n");
+    
     return 0;
+
 }
