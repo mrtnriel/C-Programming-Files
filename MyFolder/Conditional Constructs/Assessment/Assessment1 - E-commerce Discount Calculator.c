@@ -34,7 +34,7 @@ int main (){
 
     //initialization of variables
 
-    int customerType;//for customer type
+    int customerType; //for customer type
 
     double originalAmount, discountApplied = 0, finalAmount; //for original amount, discount and final amount
 
@@ -53,8 +53,7 @@ int main (){
 
     printf ("Enter Original Amount: ");
     scanf ("%lf", &originalAmount);
-
-
+    
     //regular
 
     if (customerType == 1){
@@ -66,7 +65,6 @@ int main (){
             printf ("You have not met the required amount! No Discount Applied!\n");
         }
     }
-
 
     //silver
 
@@ -80,7 +78,6 @@ int main (){
         }
     }
 
-
     //gold
 
     if (customerType == 3){
@@ -92,7 +89,6 @@ int main (){
             printf ("You have not met the required amount! No Discount Applied!\n");            
         }
     }
-
 
     //final amount
 
