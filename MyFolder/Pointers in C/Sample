@@ -1,0 +1,159 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_MOVIES 100
+
+
+typedef struct {
+	char title[50];
+	char director[50];
+	int releaseYear;
+}Movie;
+
+Movie info[MAX_MOVIES];
+int movie_count = 0;
+
+void addMovie();
+void searchMovie();
+void displayMovie();
+void saveMovie();
+void loadMovie();
+
+int main(){
+	
+int choice;
+
+    while (1) {
+        printf("\nMovie Collection Manager\n");
+        printf("1. Add Movie\n");
+        printf("2. Search Movie\n");
+        printf("3. Display All Movies\n");
+        printf("4. Save and Exit\n");  
+		printf("5. Load and Exit\n");        
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar(); // To consume the newline character after scanf
+
+        switch (choice) {
+            case 1:
+                addMovie();
+                break;
+            case 2:
+                searchMovie();
+                break;
+            case 3:
+                displayMovie();
+                break;
+            case 4:
+            	saveMovie();
+            	printf("Exiting...\n");
+                return 0;
+            case 5:
+            	loadMovie();
+            	return 0;
+            case 6:
+                printf("Exiting...\n");
+                return 0;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+
+    return 0;
+}
+
+void addMovie(){
+	if (movie_count >= MAX_MOVIES){
+		printf("Movie Collection is full.\n");
+		return;
+	}
+	
+	Movie m;
+    printf("Enter movie title: ");
+    scanf(" %[^\n]%*c", m.title);
+    
+    printf("Enter director: ");
+    scanf(" %[^\n]%*c", m.director);	   
+
+    printf("Enter release year: ");
+    scanf("%d", &m.releaseYear);
+
+    info[movie_count++] = m;
+    printf("Movie added successfully!\n");
+}
+
+void searchMovie(){
+	char title[50];
+    printf("Enter movie title to search: ");
+    scanf(" %[^\n]%*c", title);
+
+    for (int i = 0; i < movie_count; i++) {
+        if (strcmp(info[i].title, title) == 0) {
+            printf("Movie found:\n");
+            printf("Title: %s\n", info[i].title);
+            printf("Director: %s\n", info[i].director);
+            printf("Release Year: %d\n", info[i].releaseYear);
+            return;
+        }else{
+        	printf("Movie not found!");
+		}
+    }
+}
+void displayMovie(){
+	if (movie_count == 0){
+		printf("No Movies Collection.\n");
+		return;
+	}
+	
+	for (int i = 0; i < movie_count; i++){
+		printf("Movie %d:\n", i + 1);
+        printf("Title: %s\n", info[i].title);
+        printf("Director: %s\n", info[i].director);
+        printf("Release Year: %d\n", info[i].releaseYear);
+	}
+}
+
+void saveMovie(){
+	FILE *fptr;
+	
+	fptr = fopen("D:/Users/Adrian Dimaano/Desktop/File Handling/MCM.txt", "w");
+	
+	if (fptr != NULL){
+		for(int i=0; i<movie_count; i++){
+			fprintf(fptr, "Movie %d:\n", i + 1);
+	        fprintf(fptr, "Title: %s\n", info[i].title);
+	        fprintf(fptr, "Director: %s\n", info[i].director);
+	        fprintf(fptr, "Release Year: %d\n", info[i].releaseYear);
+			fprintf(fptr,"\n");	
+		}
+
+		printf("Save Successfully!\n");
+		fclose(fptr);
+	}else{
+		printf("Failed!");
+	}	
+}
+
+void loadMovie(){
+	FILE *fptr;
+
+	fptr = fopen("D:/Users/Adrian Dimaano/Desktop/File Handling/MCM.txt", "r");
+	char dataToBeRead[50];
+		
+	if (fptr != NULL){
+
+        while (fgets(dataToBeRead, 50, fptr)
+               != NULL) {
+
+            printf("%s", dataToBeRead);
+        }
+
+        fclose(fptr);
+
+        printf("Data successfully read from file.\n");
+	
+	}else{
+		printf("Failed!");
+	}	
+}
